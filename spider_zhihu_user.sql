@@ -1,0 +1,20 @@
+CREATE TABLE `spider_zhihu_user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `key` varchar(30) DEFAULT NULL,
+  `name` varchar(30) DEFAULT NULL,
+  `identity` varchar(100) DEFAULT NULL,
+  `location` varchar(20) DEFAULT NULL,
+  `profession` varchar(30) DEFAULT NULL,
+  `sex` int(2) DEFAULT NULL,
+  `school` varchar(30) DEFAULT NULL,
+  `major` varchar(30) DEFAULT NULL,
+  `recommend` varchar(100) DEFAULT NULL,
+  `picUrl` varchar(255) DEFAULT NULL,
+  `agree` int(11) DEFAULT NULL,
+  `thanks` int(11) DEFAULT NULL,
+  `ask` int(11) DEFAULT NULL,
+  `answer` int(11) DEFAULT NULL,
+  `article` int(11) DEFAULT NULL,
+  `collection` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=104 DEFAULT CHARSET=utf8;
