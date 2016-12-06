@@ -1,0 +1,133 @@
+1、可以从java入手，很容易找到中文教程。
+httpClient+jsoup
+先试着爬一个不用登陆，安全级别低的网站，例如成人网站（现在电脑里还有某成人网站所有电影的磁力连接。。）
+
+2、然后爬一个需要登陆的网站，你会就会去研究模拟登陆，http协议，cookie这些东西
+
+3、然后再爬一个难度较高的网站，新浪微博啦，豆瓣啦，你就会研究识别验证码，反爬虫机制之类的东西
+
+4、如果你想把爬下来的东西做成像百度，谷歌一样的搜索引擎，可以研究lucene，solr这些东西
+5、
+如果你想提高你的爬虫效率，你就会研究多线程，分布式这些东西，搞个mongoDB玩玩也是不错的
+
+
+
+这些都是我今年年初做毕业论文的时候学到的，总之东西都不难，难的是真正动手去做，越做越有自信。
+
+
+
+使用HttpClient和Jsoup快捷抓取和分析页面：
+（1）我要写的是一个比较通用的爬虫，主要爬起中文的网站的内容，
+（2）对于HTTP协议及报文的处理，没有比HttpClient组件更好的选择了
+（3）对于HTML代码的解析，在比较HTMLParser和Jsoup后，后者在API的使用上优势明显，简洁易懂。
+（4）所使用的开源组件定下来后，接着开始思考如何抓取和解析这两个基本功能。
+
+
+HttpClient + Jsoup + HtmlUnit :
+（1）通过HttpClient可以很方便的抓取静态网页数据，过程很简单，步骤如下：
+ 	//构造client  
+	HttpClient client = new HttpClient();  
+	//构建GetMethod对象  
+	GetMethod temp_get = new GetMethod(URL);  
+	client.executeMethod(temp_get);              
+	//获取返回的网页信息  
+	String webResult=temp_get.getResponseBodyAsString(); 
+（2）抓取后的网页分析也有很多开源的工具包，这里推荐使用jsoup，因为其语法和jquery类似，有网页开发经验的人使用起来很方便
+	Document doc = Jsoup.parse(htmlString);  
+	Elements dls = doc.select("#queryform .listinfo").select("dl");  
+	Elements xhdds=dls.get(0).select("dd");//序号  
+	Elements grbmdds=dls.get(1).select("dd");//个人编码  
+（3）最后，如果我们需要获取的网页数据是通过ajax获取后生成的，那么使用HttpClient则不能解决，推荐使用HtmlUnit（http://htmlunit.sourceforge.net/），使用起来也很简单：
+
+	WebClient webClient = new WebClient()  
+	HtmlPage page = webClient.getPage("http://some_url");  
+	final HtmlDivision div = page.getHtmlElementById("some_div_id");
+
+
+
+可以分为两部分：一部分为新闻展示，另一部分可以为新闻搜索。（以今日头条http://www.toutiao.com/为目标）
+
+一、新闻展示：
+1、即直接从相关新闻抓取信息，包括：新闻标题、发布时间、关键字、浏览次数（跟帖或者评论次数）、新闻来源、新闻主体内容、图片、访问链接等。
+2、这部分可以参考“抓取2345在线万年历的数据”的例子：http://www.cnblogs.com/lkxsnow/     
+   也可参考http:“Java实现爬虫给App提供数据（Jsoup 网络爬虫）”//www.jb51.net/article/78228.htm
+
+二、新闻搜索：
+1、即抓取网站查询后的数据进行展示，可简单包括：标题、访问链接等
+2、这部分可参考一个通用的关于Java爬虫抓取信息的代码：http://blog.csdn.net/lmj623565791/article/details/23272657
+
+三、数据存储：
+1、关于抓取到的数据处理和数据存储可以参考“Java+MySQL实现网络爬虫程序”：http://johnhany.net/2013/11/web-crawler-using-java-and-mysql/
+
+中国政府网：
+	四部分：1、要闻	2、政策	3、专题	4、高端访谈-发布会
+	实体类：（1）bigTitle大标题、smallTitle小标题  （2）href原链接、url本地路径（本地链接） （3）time时间  （4）from新闻来源  （5）content新闻内容  （6）section版块标题
+
+
+自定义监控或者定时任务：qrazt或者直接用自带的timer
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
