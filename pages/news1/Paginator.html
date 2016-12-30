@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Home</title>
+
+<link href="css/bootstrap.css" rel="stylesheet">
+
+<script type="text/javascript" src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/bootstrap-paginator.js"></script>
+
+<script type="text/javascript">
+	var pageNumber = 1;
+var pageSiza = 10;
+function getData() {
+    $.post("url", {
+        dataId : dataId,
+        currentPage: pageNumber,
+        pageSize  : pageSize
+    }, function(data) {
+        if (data.totalRow > 0) {
+            var options = {
+                currentPage : data.pageNumber,    //变量名必须为currentPage
+                totalPages : data.totalPage,    //变量名必须为totalPages
+                ajaxOption: {
+                    url: 'url',
+                    pageSize: pageSize,
+                    dataId : dataId,
+                    appendElement: 'data-list',
+                    templateId: 'tpl-data-list',
+                    otherParams:{
+                        
+                    }
+                },
+            }
+            $('#data-pagination').bootstrapPaginator(options);
+            var html = template("tpl-data-list", data);
+            $('#data-list').html(html);
+        } else {
+            $('#data-list').html("");
+        }
+    });
+}
+</script>
+</head>
+<body>
+<div  class="padlr" align="right">
+　　<ul id="data-pagination" class="pagination">
+   　　<li  class="disabled"><a href="#">&laquo;</a></li>
+      <li class="active"><a href="#">1</a></li>
+      <li><a href="#">2</a></li>
+      <li><a href="#">3</a></li>
+      <li><a href="#">4</a></li>
+      <li><a href="#">5</a></li>
+      <li><a href="#">&raquo;</a></li>
+   </ul>
+</div>
+</body>
+</html>
